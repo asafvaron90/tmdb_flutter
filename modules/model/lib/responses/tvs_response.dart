@@ -1,4 +1,4 @@
-import '../tv.dart';
+import '../tvs/tv.dart';
 
 class TvsResponse {
   final int page;

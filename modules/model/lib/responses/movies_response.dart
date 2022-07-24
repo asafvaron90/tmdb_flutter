@@ -1,4 +1,4 @@
-import '../movie.dart';
+import '../movies/movie.dart';
 
 class MoviesResponse {
   final int page;
