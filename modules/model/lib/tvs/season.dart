@@ -1,29 +1,39 @@
-import 'package:hive/hive.dart';
-
-@HiveType(typeId: 4)
-class Season extends HiveObject {
-  @HiveField(0)
+class Season {
   final int id;
-  @HiveField(1)
   final String air_date;
-  @HiveField(2)
   final int episode_count;
-  @HiveField(3)
   final String name;
-  @HiveField(4)
   final String overview;
-  @HiveField(5)
   final String poster_path;
-  @HiveField(6)
   final int season_number;
 
-  Season(
-    this.air_date,
-    this.episode_count,
-    this.id,
-    this.name,
-    this.overview,
-    this.poster_path,
-    this.season_number,
-  );
+  Season({
+    required this.air_date,
+    required this.episode_count,
+    required this.id,
+    required this.name,
+    required this.overview,
+    required this.poster_path,
+    required this.season_number,
+  });
+
+  factory Season.fromJson(Map<dynamic, dynamic> json) => Season(
+        air_date: json['air_date'],
+        episode_count: json['episode_count'],
+        id: json['id'],
+        name: json['name'],
+        overview: json['overview'],
+        poster_path: json['poster_path'],
+        season_number: json['season_number'],
+      );
+
+  Map<dynamic, dynamic> toJson() => {
+        'id': id,
+        'air_date': air_date,
+        'episode_count': episode_count,
+        'name': name,
+        'overview': overview,
+        'poster_path': poster_path,
+        'season_number': season_number,
+      };
 }

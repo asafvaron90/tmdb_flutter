@@ -9,7 +9,7 @@ class NetworkClient {
   // dio instance
   late Dio _dio;
 
-  NetworkClient() {
+  Future<NetworkClient> init() async {
     _dio = Dio();
     _dio
       ..options.baseUrl = _tmdbBaseUrl
@@ -26,6 +26,7 @@ class NetworkClient {
         error: true,
         compact: true,
         maxWidth: 90));
+    return this;
   }
 
   Future<Response> get(
@@ -49,7 +50,7 @@ class NetworkClient {
     }
   }
 
-  Future<Response> post(
+  Future<dynamic> post(
     String url, {
     data,
     Map<String, dynamic>? queryParameters,
@@ -68,7 +69,7 @@ class NetworkClient {
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress,
       );
-      return response;
+      return response.data;
     } catch (e) {
       rethrow;
     }

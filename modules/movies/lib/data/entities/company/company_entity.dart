@@ -1,17 +1,25 @@
-class Company {
+import 'package:core/core.dart';
+import 'package:model/general/company.dart';
+
+@HiveType(typeId: 0)
+class CompanyEntity extends HiveObject {
+  @HiveField(0)
   final int id;
+  @HiveField(1)
   final String logo_path;
+  @HiveField(2)
   final String name;
+  @HiveField(3)
   final String origin_country;
 
-  Company({
+  CompanyEntity({
     required this.id,
     required this.logo_path,
     required this.name,
     required this.origin_country,
   });
 
-  factory Company.fromJson(Map<dynamic, dynamic> json) => Company(
+  factory CompanyEntity.fromJson(Map<dynamic, dynamic> json) => CompanyEntity(
         id: json['id'],
         logo_path: json['logo_path'],
         name: json['name'],
@@ -25,11 +33,14 @@ class Company {
         'origin_country': origin_country,
       };
 
-  static List<Company> fromArray(dynamic json) {
-    final List<Company> companies = [];
+  static List<CompanyEntity> fromArray(dynamic json) {
+    final List<CompanyEntity> companies = [];
     for (var c in json) {
-      companies.add(Company.fromJson(c));
+      companies.add(CompanyEntity.fromJson(c));
     }
     return companies;
   }
+
+  Company toAppModel() => Company(
+      id: id, logo_path: logo_path, name: name, origin_country: origin_country);
 }

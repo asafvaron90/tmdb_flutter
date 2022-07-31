@@ -1,12 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:core/movies/movies_repository.dart';
+import 'package:common_dependencies/common_dependencies.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:model/movies/movie.dart';
+import 'package:movies/movies_repository.dart';
 import 'package:tmdb_flutter/service_locator.dart';
-import 'package:model/movies/movies_type.dart';
+import 'package:ui_movies/pages/movies_page.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await setup();
   runApp(const MyApp());
 }
@@ -44,69 +43,15 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: FutureBuilder<List<Movie>>(
-          future: getIt<MoviesRepository>().getByType(MoviesType.topRated),
-          initialData: [],
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return Text(snapshot.error.toString());
-            }
-            return Visibility(
-              visible: snapshot.hasData && snapshot.data!.isNotEmpty,
-              child: ListView.builder(
-                itemCount: snapshot.data!.length,
-                itemBuilder: (context, index) => Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      height: 200,
-                      width: Get.width,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: CachedNetworkImage(
-                                imageUrl: snapshot.data![index].poster_path,
-                                fit: BoxFit.contain,
-                                height: 160,
-                                width: 80,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 4,
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    snapshot.data![index].title,
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Text(
-                                    snapshot.data![index].overview,
-                                    maxLines: 3,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ]),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            );
-          },
-        ),
+        child: FutureBuilder(
+            future: getIt.allReady(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return MoviesPage(moviesRepository: getIt<MoviesRepository>());
+              }
+
+              return const CircularProgressIndicator();
+            }),
       ),
     );
   }

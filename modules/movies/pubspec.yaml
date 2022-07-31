@@ -1,8 +1,7 @@
-name: model
+name: movies
 description: A new Flutter package project.
 version: 0.0.1
 homepage:
-
 publish_to: 'none'
 
 environment:
@@ -12,3 +11,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  core:
+    path: ../core
+  model:
+    path: ../model
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
