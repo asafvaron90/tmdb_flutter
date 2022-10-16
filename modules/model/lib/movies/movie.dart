@@ -1,13 +1,13 @@
-import 'package:flutter/material.dart';
-
 import '../general/company.dart';
+import '../general/genre.dart';
 
 class Movie {
   final int id;
   final String? backdropPath;
-  final bool belongsToCollection;
+  final Map? belongsToCollection;
   final num budget;
-  final List<int> genres;
+  final List<dynamic> genre_ids;
+  final List<Genre>? genres;
   final String homepage;
   final String originalLanguage;
   final String originalTitle;
@@ -30,6 +30,7 @@ class Movie {
     required this.backdropPath,
     required this.belongsToCollection,
     required this.budget,
+    required this.genre_ids,
     required this.genres,
     required this.homepage,
     required this.originalLanguage,
@@ -53,9 +54,10 @@ class Movie {
     return Movie(
         id: json['id'],
         backdropPath: json['backdrop_path'],
-        belongsToCollection: json['belongs_to_collection'] ?? false,
+        belongsToCollection: json['belongs_to_collection'],
         budget: json['budget'] ?? 0,
-        genres: json['genres'] ?? [],
+        genre_ids: json['genre_ids'] ?? [],
+        genres: Genre.fromArray(json['genres'] ?? []),
         homepage: json['homepage'] ?? "",
         originalLanguage: json['original_language'],
         originalTitle: json['original_title'],
@@ -100,7 +102,7 @@ class Movie {
       };
 
   static List<Movie> fromArray(dynamic json) {
-    debugPrint('Movie, fromArray: $json');
+    // debugPrint('Movie, fromArray: $json');
     final List<Movie> movies = [];
     for (var m in json) {
       movies.add(m is Movie ? m : Movie.fromJson(m));
@@ -109,5 +111,5 @@ class Movie {
   }
 
   static String getImageUrl(String path) =>
-      "https://image.tmdb.org/t/p/w500/$path";
+      "https://image.tmdb.org/t/p/w500$path";
 }

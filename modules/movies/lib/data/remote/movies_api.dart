@@ -18,4 +18,14 @@ class MoviesApi implements MoviesDataSource {
       rethrow;
     }
   }
+
+  @override
+  Future<Map> getMovieDetails(int mId) async {
+    try {
+      final response = await _networkClient.get(MoviesEndpoints.byId(mId));
+      return response.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

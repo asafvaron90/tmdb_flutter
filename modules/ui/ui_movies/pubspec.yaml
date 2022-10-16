@@ -13,6 +13,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  core:
+    path: ../../core
   model:
     path: ../../model
   common_dependencies:
@@ -22,6 +24,8 @@ dependencies:
     path: ../../domain/
   movies:
     path: ../../movies
+  ui_common:
+    path: ../ui_common
 
 dev_dependencies:
   flutter_test:

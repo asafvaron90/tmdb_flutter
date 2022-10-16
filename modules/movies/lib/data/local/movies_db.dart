@@ -49,4 +49,10 @@ class MoviesDb implements MoviesDataSource {
       rethrow;
     }
   }
+
+  @override
+  Future<Map> getMovieDetails(int mId) {
+    // TODO: implement getMovieDetails
+    throw UnimplementedError();
+  }
 }

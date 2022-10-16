@@ -6,7 +6,7 @@ class CompanyEntity extends HiveObject {
   @HiveField(0)
   final int id;
   @HiveField(1)
-  final String logo_path;
+  final String? logo_path;
   @HiveField(2)
   final String name;
   @HiveField(3)

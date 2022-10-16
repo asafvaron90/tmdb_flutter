@@ -14,21 +14,21 @@ dependencies:
 
   # modules
   model:
-    path: ./modules/model/
+    path: ./modules/model
   core:
-    path: ./modules/core/
+    path: ./modules/core
   common_dependencies:
-    path: ./modules/common_dependencies/
+    path: ./modules/common_dependencies
   domain:
     path: ./modules/domain/
 
   # Movies
   movies:
     path: ./modules/movies/
+  ui_common:
+    path: ./modules/ui/ui_common
   ui_movies:
     path: ./modules/ui/ui_movies/
-
-  get_it: ^7.2.0
 
 dev_dependencies:
   flutter_test:

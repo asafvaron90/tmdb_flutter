@@ -1,8 +1,8 @@
 class Company {
   final int id;
-  final String logo_path;
-  final String name;
-  final String origin_country;
+  final String? logo_path;
+  final String? name;
+  final String? origin_country;
 
   Company({
     required this.id,

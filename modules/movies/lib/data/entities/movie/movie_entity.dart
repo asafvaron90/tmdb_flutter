@@ -2,6 +2,7 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:model/models.dart';
 import 'package:movies/data/entities/company/company_entity.dart';
+import 'package:movies/data/entities/genre/genre_entity.dart';
 
 @HiveType(typeId: 2)
 class MovieEntity extends HiveObject {
@@ -10,11 +11,11 @@ class MovieEntity extends HiveObject {
   @HiveField(1)
   final String? backdrop_path;
   @HiveField(2)
-  final bool belongs_to_collection;
+  final Map<dynamic, dynamic>? belongs_to_collection;
   @HiveField(3)
   final num budget;
   @HiveField(4)
-  final List<int> genres;
+  final List<GenreEntity> genres;
   @HiveField(5)
   final String homepage;
   @HiveField(6)
@@ -47,6 +48,8 @@ class MovieEntity extends HiveObject {
   final num vote_average;
   @HiveField(20)
   final num vote_count;
+  @HiveField(21)
+  final List<dynamic> genre_ids;
 
   MovieEntity({
     required this.id,
@@ -54,6 +57,7 @@ class MovieEntity extends HiveObject {
     required this.belongs_to_collection,
     required this.budget,
     required this.genres,
+    required this.genre_ids,
     required this.homepage,
     required this.original_language,
     required this.original_title,
@@ -76,9 +80,10 @@ class MovieEntity extends HiveObject {
     return MovieEntity(
         id: json['id'],
         backdrop_path: json['backdrop_path'],
-        belongs_to_collection: json['belongs_to_collection'] ?? false,
+        belongs_to_collection: json['belongs_to_collection'],
         budget: json['budget'] ?? 0,
-        genres: json['genres'] ?? [],
+        genre_ids: json['genre_ids'] ?? [],
+        genres: GenreEntity.fromArray(json['genres'] ?? []),
         homepage: json['homepage'] ?? "",
         original_language: json['original_language'],
         original_title: json['original_title'],
@@ -103,6 +108,7 @@ class MovieEntity extends HiveObject {
         'backdrop_path': backdrop_path,
         'belongs_to_collection': belongs_to_collection,
         'budget': budget,
+        'genre_ids': genre_ids,
         'genres': genres,
         'homepage': homepage,
         'original_language': original_language,
@@ -123,7 +129,7 @@ class MovieEntity extends HiveObject {
       };
 
   static List<MovieEntity> fromArray(dynamic json) {
-    debugPrint('Movie, fromArray: $json');
+    // debugPrint('Movie, fromArray: $json');
     final List<MovieEntity> movies = [];
     for (var m in json) {
       movies.add(m is MovieEntity ? m : MovieEntity.fromJson(m));
@@ -139,7 +145,8 @@ class MovieEntity extends HiveObject {
         backdropPath: backdrop_path,
         belongsToCollection: belongs_to_collection,
         budget: budget,
-        genres: genres,
+        genre_ids: genre_ids,
+        genres: genres.map((e) => e.toAppModel()).toList(),
         homepage: homepage,
         originalLanguage: original_language,
         originalTitle: original_title,

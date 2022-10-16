@@ -21,6 +21,7 @@ dependencies:
   pretty_dio_logger: ^1.1.1
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  get_it: ^7.2.0
 
   # https://firebase.google.com/docs/auth/flutter/federated-auth#ios+-and-android_3
   firebase_auth: ^3.4.2
