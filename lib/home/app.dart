@@ -51,29 +51,27 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: getIt.allReady(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return FutureBuilder(
-              future: Future.delayed(const Duration(seconds: 2)),
-              builder: (context, snapshot) => LayoutBuilder(
-                  builder: (BuildContext context, BoxConstraints constraints) {
-                if (constraints.maxWidth > 730) {
-                  return WebNavigationRailsScaffold(
-                    index: _selectedIndex,
-                    onChange: changeDestination,
-                  );
-                } else {
-                  return MobileBottomNavigationScaffold(
-                    index: _selectedIndex,
-                    onChange: changeDestination,
-                  );
-                }
-              }),
-            );
-          }
-
-          return const SplashPage();
-        });
+      future: Future.delayed(const Duration(seconds: 10)),
+      initialData: null,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+            if (constraints.maxWidth > 730) {
+              return WebNavigationRailsScaffold(
+                index: _selectedIndex,
+                onChange: changeDestination,
+              );
+            } else {
+              return MobileBottomNavigationScaffold(
+                index: _selectedIndex,
+                onChange: changeDestination,
+              );
+            }
+          });
+        }
+        return const SplashPage();
+      },
+    );
   }
 }

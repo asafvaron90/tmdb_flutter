@@ -1,3 +1,4 @@
+import 'package:common_dependencies/common_dependencies.dart';
 import 'package:core/core.dart';
 import 'package:movies/data/local/movies_db.dart';
 import 'package:movies/data/remote/movies_api.dart';
@@ -20,4 +21,8 @@ Future<void> setupDependencies() async {
         DbClient,
         NetworkClient,
       ]);
+
+  await getIt.allReady();
+
+  Fimber.d('DI complete');
 }
